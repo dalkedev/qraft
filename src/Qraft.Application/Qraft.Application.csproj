@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="../Qraft.Contracts/Qraft.Contracts.csproj" />
+    <ProjectReference Include="../Qraft.Domain/Qraft.Domain.csproj" />
+  </ItemGroup>
+</Project>

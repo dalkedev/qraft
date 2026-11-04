@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <ItemGroup>
+    <ProjectReference Include="../Qraft.Application/Qraft.Application.csproj" />
+    <ProjectReference Include="../Qraft.Infrastructure/Qraft.Infrastructure.csproj" />
+    <ProjectReference Include="../Qraft.Contracts/Qraft.Contracts.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+  </ItemGroup>
+</Project>

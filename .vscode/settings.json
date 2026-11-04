@@ -1,0 +1,6 @@
+{
+  "dotnet.defaultSolution": "Qraft.slnx",
+  "files.exclude": { "**/bin": true, "**/obj": true },
+  "search.exclude": { "work": true, "outputs": true, "**/node_modules": true, "**/bin": true, "**/obj": true, "data": true },
+  "typescript.tsdk": "apps/web/node_modules/typescript/lib"
+}

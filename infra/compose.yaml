@@ -1,0 +1,24 @@
+name: qraft-dev
+
+services:
+  rabbitmq:
+    image: rabbitmq:4.2-management-alpine@sha256:bab245c7ac4db27a64834e3647ba4fbcbd28a970eece0d4a47a3e6d12cceeff2
+    hostname: qraft-rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: ${QRAFT_RABBITMQ_USER:-qraft}
+      RABBITMQ_DEFAULT_PASS: ${QRAFT_RABBITMQ_PASSWORD:-qraft-local-dev}
+      RABBITMQ_DEFAULT_VHOST: /qraft
+    ports:
+      - "127.0.0.1:${QRAFT_AMQP_PORT:-5677}:5672"
+      - "127.0.0.1:${QRAFT_RABBITMQ_UI_PORT:-15677}:15672"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 15s
+
+volumes:
+  rabbitmq-data:

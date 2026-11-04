@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Qraft.Api/Qraft.Api.csproj" />
+    <Project Path="src/Qraft.Application/Qraft.Application.csproj" />
+    <Project Path="src/Qraft.Contracts/Qraft.Contracts.csproj" />
+    <Project Path="src/Qraft.Domain/Qraft.Domain.csproj" />
+    <Project Path="src/Qraft.Infrastructure/Qraft.Infrastructure.csproj" />
+    <Project Path="src/Qraft.Messaging/Qraft.Messaging.csproj" />
+    <Project Path="src/Qraft.Simulator/Qraft.Simulator.csproj" />
+    <Project Path="src/Qraft.Worker/Qraft.Worker.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Qraft.UnitTests/Qraft.UnitTests.csproj" />
+  </Folder>
+</Solution>

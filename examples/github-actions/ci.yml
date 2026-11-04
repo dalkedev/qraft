@@ -1,0 +1,40 @@
+name: Qraft checks
+
+on: [push, pull_request]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      rabbitmq:
+        image: rabbitmq:4.2-management-alpine@sha256:bab245c7ac4db27a64834e3647ba4fbcbd28a970eece0d4a47a3e6d12cceeff2
+        env:
+          RABBITMQ_DEFAULT_USER: qraft
+          RABBITMQ_DEFAULT_PASS: qraft-local-dev
+          RABBITMQ_DEFAULT_VHOST: /qraft
+        ports: ['5677:5672']
+        options: >-
+          --health-cmd "rabbitmq-diagnostics -q ping"
+          --health-interval 5s --health-timeout 5s --health-retries 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - run: dotnet tool restore
+      - run: dotnet restore Qraft.slnx --locked-mode
+      - run: npm ci --prefix apps/web
+      - run: npm test
+      - name: Real queue round trip
+        run: |
+          mkdir -p .dev
+          node scripts/dev.mjs --no-watch --skip-broker > .dev/ci.log 2>&1 &
+          qraft_dev_pid=$!
+          trap 'kill "$qraft_dev_pid" 2>/dev/null || true' EXIT
+          node scripts/wait-ready.mjs
+          npm run test:smoke

@@ -1,0 +1,4 @@
+{
+  "folders": [{ "name": "Qraft", "path": "." }],
+  "settings": { "dotnet.defaultSolution": "Qraft.slnx" }
+}
